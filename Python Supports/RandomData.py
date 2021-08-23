@@ -1,4 +1,5 @@
 from faker import Faker
+import random
 
 fake = Faker()
 
@@ -23,4 +24,9 @@ def getCustEmail():
     return getFirstName() + getLastName() + '@cust.com'
 
 
-print(getCustEmail())
+# print(getCustEmail())
+# TODO add the ss and reports in a different folder and exclude that folder from git upload
+
+def languageSelector():
+    lang = ['en', 'es']
+    return random.choice(lang)
