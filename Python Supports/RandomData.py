@@ -1,15 +1,17 @@
 from faker import Faker
 import random
+from CommonHandler import birthDateSelector
 
 fake = Faker()
-
+fname = fake.first_name()
+lname = fake.last_name()
 
 def getFirstName():
-    return fake.first_name()
+    return fname
 
 
 def getLastName():
-    return fake.last_name()
+    return lname
 
 
 def getAddress():
@@ -17,16 +19,27 @@ def getAddress():
 
 
 def getRepEmail():
-    return getFirstName() + getLastName() + '@rep.com'
+    return fname + lname + '@rep.com'
 
 
 def getCustEmail():
-    return getFirstName() + getLastName() + '@cust.com'
+    return fname + lname + '@cust.com'
 
 
-# print(getCustEmail())
 # TODO add the ss and reports in a different folder and exclude that folder from git upload
 
 def languageSelector():
     lang = ['en', 'es']
     return random.choice(lang)
+
+
+def getBirthMonth():
+    return birthDateSelector(random.randrange(1, 12))
+
+
+def getBirthDay():
+    return birthDateSelector(random.randrange(1, 28))
+
+
+def getBirthYear():
+    return birthDateSelector(random.randrange(1900, 2002))

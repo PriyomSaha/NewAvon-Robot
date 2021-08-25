@@ -5,4 +5,4 @@ Resource    ResourceImports.robot
 *** Test Cases ***
 SignUp and Login
 #        REP Login and Shop
-    BAR With 30$ Kit
+    BAR with no cost signup
