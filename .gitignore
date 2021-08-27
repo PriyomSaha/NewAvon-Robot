@@ -1,8 +1,8 @@
-/.gitignore
-/Output
-/log.html
-/output.xml
-/report.html
-/log.html
-/selenium-screenshot-1.png
-/venv
+.gitignore
+.idea
+.log.html
+.output.xml
+.report.html
+.log.html
+.selenium-screenshot-1.png
+.venv
