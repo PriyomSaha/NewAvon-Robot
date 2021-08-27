@@ -1,6 +1,6 @@
 from faker import Faker
 import random
-from CommonHandler import birthDateSelector
+from CommonHandler import birthDateSelector , cardExpiryDateSelector
 
 fake = Faker()
 fname = fake.first_name()
@@ -13,6 +13,8 @@ def getFirstName():
 def getLastName():
     return lname
 
+def getFullName():
+    return fname+' '+lname
 
 def getAddress():
     return fake.street_address()
@@ -43,3 +45,13 @@ def getBirthDay():
 
 def getBirthYear():
     return birthDateSelector(random.randrange(1900, 2002))
+
+
+def getCardExpiryMonth():
+    return cardExpiryDateSelector(random.randrange(1,12))
+
+def getCardExpiryYear():
+    return cardExpiryDateSelector(random.randrange(2022,2040))
+
+def getCVV():
+    return random.randrange(100,999)

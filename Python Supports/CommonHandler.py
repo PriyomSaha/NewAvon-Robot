@@ -13,8 +13,15 @@ def moveFiles():
         if os.path.exists(main + file):
             shutil.move(main + file, main + destination)
 
-moveFiles()
 
 def birthDateSelector(value):
     xpath = "xpath://li[contains(text(),'"
+    return xpath + str(value) + "')]"
+
+
+def cardExpiryDateSelector(value):
+    xpath = "xpath://li[contains(text(),'"
+    value = str(value)
+    if len(value) == '1':
+        value = '0' + value
     return xpath + str(value) + "')]"

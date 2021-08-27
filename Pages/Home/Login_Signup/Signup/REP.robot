@@ -17,6 +17,7 @@ ${completeButton}   //button[contains(text(),'Complete')]
 ${repAccountInfo}   xpath://strong[contains(text(),'Your Representative Info')]
 ${emailContainer}        xpath://strong[contains(text(),'Email Address')]/following-sibling::div
 ${beeNumberContainer}    xpath://strong[contains(text(),'Avon Account Number')]/following-sibling::div
+${kitRadio}   xpath://div[contains(text(),'New Representative Color Set')]
 
 *** Keywords ***
 Click BAR link
@@ -37,11 +38,16 @@ Click Continue to your signup button
     Wait Until Element Is Enabled    ${signupTypeButton}
     click button    ${signupTypeButton}
 
+Click 30$ radio button
+    wait until element is enabled    ${kitradio}
+    click element    ${kitradio}
+
 Click Continue to last step button
     Wait Until Element Is Enabled    ${lastStepContinueButton}
     click button    ${lastStepContinueButton}
 
 Accept aggrements
+    Scroll Element Into View    ${aggrement1Checkbox}
     click element   ${aggrement1Checkbox}
     click element    ${aggrement2checkbox}
 
