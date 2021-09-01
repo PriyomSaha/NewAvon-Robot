@@ -16,12 +16,13 @@ initialize
     Create Webdriver     ${browser}  executable_path=C:/Users/848913/PycharmProjects/Driver/chromedriver.exe
     Go To   ${URL}
     Maximize Browser Window
+    Sleep   ${timeout}
 
 teardown
     close browser
 
 Click Continue Button
-    Wait Until Element Is Enabled    ${continueButton}
+    Wait Until Element Is Enabled    ${continueButton}      200
     Click Button    ${continueButton}
 
 ReadExcel

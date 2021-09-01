@@ -80,12 +80,12 @@ BAR With Donation Signup
     Check if Connect with an Avon Team page loaded
     Click Select Button
     Click Continue to your signup button
-
-#    Click Continue to last step button
-#    Add new Credit Card
-#    Accept aggrements
-#    Click Complete Button
-#    Check if account was created successfully
-#    Save REP account Info to sheet  'Donation Signup'
-#    Sleep    20
-#    teardown
+    click donation radio button and select donation amount
+    Click Continue to last step button
+    Add new Credit Card
+    Accept aggrements
+    Click Complete Button
+    Check if account was created successfully
+    Save REP account Info to sheet  'Donation Signup'
+    Sleep    20
+    teardown

@@ -4,6 +4,7 @@ Library    ../../Python Supports/RandomData.py
 Library    ../Python Supports/CommonHandler.py
 Library    ../Python Supports/ExcelHandler.py
 Resource    ../../Handlers/Variables.robot
+Resource    ../../Handlers/Keywords.robot
 
 
 
@@ -23,6 +24,7 @@ ${cardCVVFrame}      xpath://div[contains(@id,'securityCode-container')]/iframe
 
 *** Keywords ***
 Add new Credit Card
+    sleep    ${timeout}
     click element    ${addCreditCardButton}
     sleep    10
 
@@ -52,7 +54,20 @@ Add new Credit Card
 
 
 
+click old card
+    click element    ${savedCard}
+    sleep    ${timeout}
 
+    select frame    ${cardCVVFrame}
+    ${cvv}=     getCVV
+    input text    ${cvvInput}   ${cvv}
+    Unselect Frame
+#    click continue button
+
+Check if Old Card Present else add new card
+    ${present}=  Run Keyword And Return Status    Element Should Be Visible     ${isOldCardPresent}     10s
+    Run Keyword If    ${present}   click old card
+    ...     ELSE    Add New Credit Card
 
 
 

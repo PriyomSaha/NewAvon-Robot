@@ -19,10 +19,10 @@ def writeCell(sheetName, r, c,value):
     sheet.column_dimensions[colName[int(c)-1]].width = len(value)*2
     workbook.save(path)
 
-def getLastRow(sheetName):
+def getLastRowPlusOne(sheetName):
     sheet = workbook[sheetName]
     return sheet.max_row + 1
 
-# writeCell("Sheet1",getLastRow("Sheet1"),1,"jhshjdfjk fssjfshj sfhjsfhjdfh sfhjdfhjjk dfjkds fjk")
-
-# print(readCell('line numbers',1, 1))
+def getLastRow(sheetName):
+    sheet = workbook[sheetName]
+    return sheet.max_row

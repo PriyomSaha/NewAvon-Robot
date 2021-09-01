@@ -1,6 +1,6 @@
 from faker import Faker
 import random
-from CommonHandler import birthDateSelector , cardExpiryDateSelector
+from CommonHandler import birthDateSelector , cardExpiryDateSelector ,donationAmountSelector
 
 fake = Faker()
 fname = fake.first_name()
@@ -21,11 +21,11 @@ def getAddress():
 
 
 def getRepEmail():
-    return fname + lname + '@rep.com'
+    return 'PS_'+fname + lname + fake.numerify(text='###%%%')+'@rep.com'
 
 
 def getCustEmail():
-    return fname + lname + '@cust.com'
+    return 'PS_'+fname + lname + fake.numerify(text='###%%%')+'@cust.com'
 
 
 # TODO add the ss and reports in a different folder and exclude that folder from git upload
@@ -55,3 +55,6 @@ def getCardExpiryYear():
 
 def getCVV():
     return random.randrange(100,999)
+
+def getDonationAmount():
+    return donationAmountSelector(random.randrange(1,4))

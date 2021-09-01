@@ -18,6 +18,9 @@ ${repAccountInfo}   xpath://strong[contains(text(),'Your Representative Info')]
 ${emailContainer}        xpath://strong[contains(text(),'Email Address')]/following-sibling::div
 ${beeNumberContainer}    xpath://strong[contains(text(),'Avon Account Number')]/following-sibling::div
 ${kitRadio}   xpath://div[contains(text(),'New Representative Color Set')]
+${donationRadio}    xpath://div[contains(text(),'Make a Contribution')]
+#//div[@class='sc-eirqVv gZrHDm' and contains(text(),'Sign UP &  Make a Contribution')]
+${donationAmountDropdown}   xpath://span[@class='sc-giAqHp irplsb' and contains(text(),'Select an Option')]
 
 *** Keywords ***
 Click BAR link
@@ -42,6 +45,15 @@ Click 30$ radio button
     wait until element is enabled    ${kitradio}
     click element    ${kitradio}
 
+click donation radio button and select donation amount
+    Wait Until Element Is Enabled    ${donationRadio}
+    click element    ${donationRadio}
+    Wait Until Element Is Enabled    ${donationAmountDropdown}
+    click element    ${donationAmountDropdown}
+    ${donAmt}=  getDonationAmount
+    click element    ${donAmt}
+
+
 Click Continue to last step button
     Wait Until Element Is Enabled    ${lastStepContinueButton}
     click button    ${lastStepContinueButton}
@@ -60,12 +72,12 @@ Check if account was created successfully
 
 Save REP account Info to sheet
     [Arguments]    ${notes}
-    ${lastRowNo}=    getLastRow  Accounts
+    ${lastRowNo}=   ExcelHandler.GetLastRowPlusOne     Accounts
     ${bee}=     Get Text    ${beeNumberContainer}
     ${email}=   Get Text    ${emailContainer}
-    writecell    Accounts   ${lastRowNo}    1   ${email}
-    writecell    Accounts   ${lastRowNo}    2   REP
-    writecell    Accounts   ${lastRowNo}    3   ${bee}
-    writecell    Accounts   ${lastRowNo}    4   ${notes}
+    ExcelHandler.writecell    Accounts   ${lastRowNo}    1   ${email}
+    ExcelHandler.writecell    Accounts   ${lastRowNo}    2   REP
+    ExcelHandler.writecell    Accounts   ${lastRowNo}    3   ${bee}
+    ExcelHandler.writecell    Accounts   ${lastRowNo}    4   ${notes}
 
 
