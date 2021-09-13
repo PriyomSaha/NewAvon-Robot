@@ -1,18 +1,19 @@
 *** Settings ***
 Library  SeleniumLibrary
-Library    ../Python Supports/ExcelHandler.py
-Library    ../Python Supports/CommonHandler.py
+Library    ../PythonSupports/ExcelHandler.py
+Library    ../PythonSupports/CommonHandler.py
 Resource    Variables.robot
 
 *** Variables ***
 ${continueButton}   //button[contains(text(),'Continue')]
+${saveButton}    //button[contains(text(),'Save')]
 
 *** Keywords ***
 Wait for Max time
-    set selenium implicit wait    200seconds
+    set selenium implicit wait    20seconds
 
 initialize
-    moveFiles
+#    moveFiles
     Create Webdriver     ${browser}  executable_path=C:/Users/848913/PycharmProjects/Driver/chromedriver.exe
     Go To   ${URL}
     Maximize Browser Window

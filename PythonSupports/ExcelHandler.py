@@ -1,8 +1,11 @@
 import openpyxl
 import os
-from openpyxl import Workbook
+from pathlib import Path
 
-path = os.path.abspath("Resources/support.xlsx")
+if Path("../Resources/support.xlsx").exists():
+    path = os.path.abspath("../Resources/support.xlsx")
+else:
+    path = os.path.abspath("Resources/support.xlsx")
 
 workbook = openpyxl.load_workbook(path)
 

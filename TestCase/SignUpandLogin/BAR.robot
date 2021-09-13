@@ -1,6 +1,6 @@
 *** Settings ***
 Library  SeleniumLibrary
-Library    ../../Python Supports/RandomData.py
+Library    ../../PythonSupports/RandomData.py
 Resource    ../../Pages/Home/Login_Signup/Signup/REP.robot
 Resource    ../../Pages/Payments/Payments.robot
 
@@ -57,6 +57,7 @@ BAR With 30$ kit Signup
     Add new Credit Card
     Accept aggrements
     Click Complete Button
+#    Handling 3DS secure
     Check if account was created successfully
     Save REP account Info to sheet  '30$ kit Signup'
     Sleep    20
@@ -85,6 +86,7 @@ BAR With Donation Signup
     Add new Credit Card
     Accept aggrements
     Click Complete Button
+#    Handling 3DS secure
     Check if account was created successfully
     Save REP account Info to sheet  'Donation Signup'
     Sleep    20

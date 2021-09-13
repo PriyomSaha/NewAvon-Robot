@@ -17,7 +17,7 @@ ${completeButton}   //button[contains(text(),'Complete')]
 ${repAccountInfo}   xpath://strong[contains(text(),'Your Representative Info')]
 ${emailContainer}        xpath://strong[contains(text(),'Email Address')]/following-sibling::div
 ${beeNumberContainer}    xpath://strong[contains(text(),'Avon Account Number')]/following-sibling::div
-${kitRadio}   xpath://div[contains(text(),'New Representative Color Set')]
+${kitRadio}   xpath://div[contains(text(),'The Best Sellers New Rep set')]
 ${donationRadio}    xpath://div[contains(text(),'Make a Contribution')]
 #//div[@class='sc-eirqVv gZrHDm' and contains(text(),'Sign UP &  Make a Contribution')]
 ${donationAmountDropdown}   xpath://span[@class='sc-giAqHp irplsb' and contains(text(),'Select an Option')]
@@ -64,15 +64,16 @@ Accept aggrements
     click element    ${aggrement2checkbox}
 
 Click Complete Button
-    Wait Until Element Is Enabled   ${completeButton}
+    Wait Until Element Is Enabled   ${completeButton}   200s
     click button    ${completeButton}
+
 
 Check if account was created successfully
     wait until element is visible    ${repAccountInfo}
 
 Save REP account Info to sheet
     [Arguments]    ${notes}
-    ${lastRowNo}=   ExcelHandler.GetLastRowPlusOne     Accounts
+    ${lastRowNo}=   ExcelHandler.GetLastRowPlusOne       Accounts
     ${bee}=     Get Text    ${beeNumberContainer}
     ${email}=   Get Text    ${emailContainer}
     ExcelHandler.writecell    Accounts   ${lastRowNo}    1   ${email}

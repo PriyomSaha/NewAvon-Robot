@@ -11,3 +11,9 @@ SignUp and Login
 #    BAR With donation Signup and shop
 #    BAR With No Cost Signup and shop
     BAR With 30$ Signup and shop
+#    Creating UE customer
+#    Creating AE Customer
+#API
+#    ${token}=    Generate Token
+#
+#    Create AE Cust      ${token}

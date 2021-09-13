@@ -1,8 +1,8 @@
 *** Settings ***
 Library    SeleniumLibrary
-Library    ../../Python Supports/RandomData.py
-Library    ../Python Supports/CommonHandler.py
-Library    ../Python Supports/ExcelHandler.py
+Library    ../../PythonSupports/RandomData.py
+Library    ../PythonSupports/CommonHandler.py
+Library    ../PythonSupports/ExcelHandler.py
 Resource    ../../Handlers/Variables.robot
 Resource    ../../Handlers/Keywords.robot
 
@@ -21,6 +21,13 @@ ${expiryYearContainer}      xpath://span[contains(text(),'Year')]
 
 ${cardNumberFrame}  xpath://div[@id='number-container']/iframe
 ${cardCVVFrame}      xpath://div[contains(@id,'securityCode-container')]/iframe
+
+${threedsframeAvailable}    xpath://h3[contains(text(),'3DS Secure')]
+${threeDsframe1}        step-up-iframe
+${threeDsframe2}        xpath://div[@id='stepUpView']/div/iframe
+${authCode}         xpath://div[@id='page-wrapper']/section/div[2]/form/input
+${submit}           xpath://div[@id='page-wrapper']/section/div[2]/form/input[2]
+${cancel}          xpath://div[@id='page-wrapper']/section/div[2]/form[3]/input[2]
 
 *** Keywords ***
 Add new Credit Card
@@ -41,9 +48,11 @@ Add new Credit Card
     click element    ${expMon}
 
     click element    ${expiryYearContainer}
+    sleep    ${timeout}
     ${expYr}=  GetCardExpiryYear
     sleep    ${timeout}
     click element    ${expYr}
+    sleep    ${timeout}
 
     select frame    ${cardCVVFrame}
     ${cvv}=     getCVV
@@ -69,6 +78,19 @@ Check if Old Card Present else add new card
     Run Keyword If    ${present}   click old card
     ...     ELSE    Add New Credit Card
 
+Handling 3DS secure
+    wait until element is visible       ${threedsframeAvailable}    200s
+    sleep    10
+    Select Frame    id:${threeDsframe1}
+    select frame    ${threeDsframe2}
+    wait until element is enabled    ${authCode}    10s
+    input text      ${authCode}     1234
+#    sleep    10
+    scroll element into view    ${cancel}
+    wait until element is enabled    ${submit}    10s
+    click button    ${submit}
+    unselect frame
+    unselect frame
 
 
 

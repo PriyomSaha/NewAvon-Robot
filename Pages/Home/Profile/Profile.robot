@@ -1,6 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
-Library    ../../../Python Supports/RandomData.py
+Library    ../../../PythonSupports/RandomData.py
 Resource    ../../../Handlers/Keywords.robot
 
 *** Variables ***
@@ -16,11 +16,10 @@ ${birthDayConatiner}        xpath://span[contains(text(),'DD')]
 ${birthYearConatiner}       xpath://span[contains(text(),'YYYY')]
 ${addr1Input}    xpath://input[@name='address1']
 ${pinInput}      xpath://input[@name='zipCode']
-${saveButton}    //button[contains(text(),'Save')]
 
 *** Keywords ***
 Set Name
-    Wait for Max time
+    wait until element is visible   ${firstnameinput}
     ${fname}=   getFirstName
     input text    ${firstnameinput}     ${fname}
     ${lname}=   getLastName

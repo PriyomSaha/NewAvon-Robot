@@ -46,10 +46,11 @@ Shop By Line Number
 #    ADD NEW CREDIT CARD
     execute javascript    window.scrollTo(0,0)
     click button    ${submitOrderButton}
+#    Handling 3DS secure
     wait until element is visible   ${orderNumberContainer}   20
     ${ordConfirmationText}=   Get Text    ${orderNumberContainer}
 
-     FOR    ${i}    IN RANGE    10
+     FOR    ${i}    IN RANGE    ${timeout}
         sleep    ${timeout}
         ${ordConf}=     Get Text    ${orderNumberContainer}
         ${temp}=   Evaluate    "${ordConfirmationText}" == "${ordConf}"

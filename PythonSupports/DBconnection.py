@@ -9,5 +9,7 @@ conn = pyodbc.connect(
 )
 cursor = conn.cursor()
 cursor.execute("SELECT * FROM CST_ImisData cid")
-data = cursor.fetchall()
-print(data[:1])
+# data = cursor.fetchall()
+# print(data[:1])
+data = cursor.fetchone()[1]
+print(data)

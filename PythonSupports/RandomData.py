@@ -1,6 +1,7 @@
 from faker import Faker
 import random
-from CommonHandler import birthDateSelector , cardExpiryDateSelector ,donationAmountSelector
+from CommonHandler import birthDateSelector,donationAmountSelector,cardExpiryDateSelector
+
 
 fake = Faker()
 fname = fake.first_name()

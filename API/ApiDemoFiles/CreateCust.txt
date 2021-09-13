@@ -1,0 +1,2 @@
+{"FirstName": {{fname}}, "LastName": {{lname}}, "EmailAddress": {{email}}, "CustomerType": "AE",
+"phone": {"number": "6516516515", "codeidphonetype": "HOME", "countrycode": "US"}}

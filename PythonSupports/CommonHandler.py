@@ -1,19 +1,17 @@
-import shutil
-import os
-from ExcelHandler import getLastRowPlusOne,writeCell
+from ExcelHandler import writeCell,getLastRowPlusOne
 
 
-def moveFiles():
-    source = ["log.html", "output.xml", "report.html", "selenium-screenshot-1.png"]
-    destination = "Output"
-    main = "../../../"
-    for file in source:
-        if os.path.exists(main + destination + "/" + file):
-            os.remove(main + destination + "/" + file)
-
-        if os.path.exists(main + file):
-            shutil.move(main + file, main + destination)
-moveFiles()
+# def moveFiles():
+#     source = ["log.html", "output.xml", "report.html", "selenium-screenshot-1.png"]
+#     destination = "Output"
+#     main = "../../../"
+#     for file in source:
+#         if os.path.exists(main + destination + "/" + file):
+#             os.remove(main + destination + "/" + file)
+#
+#         if os.path.exists(main + file):
+#             shutil.move(main + file, main + destination)
+# moveFiles()
 
 def birthDateSelector(value):
     xpath = "xpath://li[contains(text(),'"
