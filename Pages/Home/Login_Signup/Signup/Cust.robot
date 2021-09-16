@@ -13,6 +13,8 @@ ${searchButton}     xpath://button[contains(text(),'Search')]
 ${repFoundText}     xpath://div[@class='FindARepResultPagestyles__ListHead-sc-18mxffh-3 ftPYaE']/div
 ${shopWithMeButton}     xpath://button[contains(text(),'Shop With Me')]
 ${startShoppingNow}     xpath://a[contains(text(),'Start shopping now!')]
+${isCustSignUpComplete}     xpath://div[starts-with(@class, 'SignUpCompletedPagestyles__Banner')]
+${custEmailContainer}       xpath://div[@class='ProfilePagestyles__InfoItemWrapper-sc-w0j2vi-5 hqTpt']/div[3]/div/div[2]
 
 *** Keywords ***
 Click Signin Link
@@ -62,3 +64,14 @@ Click Shop with me and Start Shopping now button
     wait until element is enabled    ${startShoppingNow}
     click element       ${startShoppingNow}
 
+Check if cust account created successfully
+    wait until element is visible    ${isCustSignUpComplete}
+
+
+Save Cust Account Info To Sheet
+    [Arguments]    ${notes}
+    ${lastRowNo}=   ExcelHandler.GetLastRowPlusOne       Accounts
+    ${email}=   Get Text    ${custEmailContainer}
+    ExcelHandler.writecell    Accounts   ${lastRowNo}    1   ${email}
+    ExcelHandler.writecell    Accounts   ${lastRowNo}    2   Cust
+    ExcelHandler.writecell    Accounts   ${lastRowNo}    4   ${notes}

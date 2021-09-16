@@ -32,6 +32,7 @@ ${cancel}          xpath://div[@id='page-wrapper']/section/div[2]/form[3]/input[
 *** Keywords ***
 Add new Credit Card
     sleep    ${timeout}
+    wait until element is enabled    ${addCreditCardButton}
     click element    ${addCreditCardButton}
     sleep    10
 

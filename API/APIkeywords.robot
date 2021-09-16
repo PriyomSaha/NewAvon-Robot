@@ -22,3 +22,9 @@ Create AE Cust
     ${body}=    apiTestDatarandomizer   ${data}
     ${resp}=    POST On Session    testsession    ${profileCreationUri}    data=${body}    headers=${header}    params=${ApiKeyParameter}
     log to console    ${resp.content}
+
+get profile details
+    [Arguments]    ${token}
+    ${header}=  create dictionary       Authorization=${token}      Cookie=${getCookies}
+    ${resp}=    get on session    testsession       /profile/8      headers=${header}
+    log to console    ${resp.content}

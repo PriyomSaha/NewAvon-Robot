@@ -12,7 +12,7 @@ BAR with no cost signup
     initialize
     Click BAR Link
     Set Name
-    Set Email
+    set rep email
     Set password
     Set Mobile
     click continue button
@@ -38,7 +38,7 @@ BAR With 30$ kit Signup
     initialize
     Click BAR Link
     Set Name
-    Set Email
+    set rep email
     Set password
     Set Mobile
     click continue button
@@ -67,7 +67,7 @@ BAR With Donation Signup
     initialize
     Click BAR Link
     Set Name
-    Set Email
+    set rep email
     Set password
     Set Mobile
     click continue button

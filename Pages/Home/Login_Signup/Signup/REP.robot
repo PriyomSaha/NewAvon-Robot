@@ -15,7 +15,7 @@ ${aggrement1Checkbox}       xpath://div[@direction='column']/div[1]/label/label/
 ${aggrement2Checkbox}       xpath://div[@direction='column']/div[2]/label/label/span[1]
 ${completeButton}   //button[contains(text(),'Complete')]
 ${repAccountInfo}   xpath://strong[contains(text(),'Your Representative Info')]
-${emailContainer}        xpath://strong[contains(text(),'Email Address')]/following-sibling::div
+${repEmailContainer}        xpath://strong[contains(text(),'Email Address')]/following-sibling::div
 ${beeNumberContainer}    xpath://strong[contains(text(),'Avon Account Number')]/following-sibling::div
 ${kitRadio}   xpath://div[contains(text(),'The Best Sellers New Rep set')]
 ${donationRadio}    xpath://div[contains(text(),'Make a Contribution')]
@@ -75,7 +75,7 @@ Save REP account Info to sheet
     [Arguments]    ${notes}
     ${lastRowNo}=   ExcelHandler.GetLastRowPlusOne       Accounts
     ${bee}=     Get Text    ${beeNumberContainer}
-    ${email}=   Get Text    ${emailContainer}
+    ${email}=   Get Text    ${repEmailContainer}
     ExcelHandler.writecell    Accounts   ${lastRowNo}    1   ${email}
     ExcelHandler.writecell    Accounts   ${lastRowNo}    2   REP
     ExcelHandler.writecell    Accounts   ${lastRowNo}    3   ${bee}

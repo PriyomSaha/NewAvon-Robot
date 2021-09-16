@@ -5,7 +5,9 @@ Resource    ../../../Handlers/Keywords.robot
 
 *** Variables ***
 ${firstNameInput}   xpath://input[@name='firstName']
+${shipppingfirstNameInput}         xpath://input[@name='shippingAddress.firstName']
 ${lastNameInput}    xpath://input[@name='lastName']
+${shipppinglastNameInput}         xpath://input[@name='shippingAddress.lastName']
 ${emailInput}       xpath://input[@name='emailAddr']
 ${emailRenteredInput}   xpath://input[@name='emailAddrReEntered']
 ${pass}                 xpath://input[@name='password']
@@ -15,7 +17,9 @@ ${birthMonthConatiner}       xpath://span[contains(text(),'MM')]
 ${birthDayConatiner}        xpath://span[contains(text(),'DD')]
 ${birthYearConatiner}       xpath://span[contains(text(),'YYYY')]
 ${addr1Input}    xpath://input[@name='address1']
+${shippingaddr1Input}    xpath://input[@name='shippingAddress.address1']
 ${pinInput}      xpath://input[@name='zipCode']
+${shippingpinInput}     xpath://input[@name='shippingAddress.zipCode']
 
 *** Keywords ***
 Set Name
@@ -25,8 +29,13 @@ Set Name
     ${lname}=   getLastName
     input text    ${lastNameInput}      ${lname}
 
-Set Email
+set rep email
     ${email}=   GetRepEmail
+    input text      ${emailInput}           ${email}
+    input text      ${emailRenteredInput}   ${email}
+
+set cust email
+    ${email}=   GetCustEmail
     input text      ${emailInput}           ${email}
     input text      ${emailRenteredInput}   ${email}
 
@@ -67,3 +76,12 @@ Set Additional profile details for rep
     sleep    ${timeout}
     click element   ${birthYear}
 
+Set shipping details
+    wait until element is visible   ${shipppingfirstNameInput}
+    ${fname}=   getFirstName
+    input text    ${shipppingfirstNameInput}     ${fname}
+    ${lname}=   getLastName
+    input text    ${shipppinglastNameInput}      ${lname}
+    ${addr1}=   getAddress
+    input text    ${shippingaddr1Input}  ${addr1}
+    input text    ${shippingpinInput}   10001

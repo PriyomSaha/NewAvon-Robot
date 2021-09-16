@@ -6,6 +6,8 @@ Resource    Variables.robot
 
 *** Variables ***
 ${continueButton}   //button[contains(text(),'Continue')]
+${continueButton2}  (//button[contains(text(),'Continue')])[position()=2]
+${continueButton3}  (//button[contains(text(),'Continue')])[position()=3]
 ${saveButton}    //button[contains(text(),'Save')]
 
 *** Keywords ***
@@ -25,6 +27,14 @@ teardown
 Click Continue Button
     Wait Until Element Is Enabled    ${continueButton}      200
     Click Button    ${continueButton}
+
+Click Continue Button2
+    Wait Until Element Is Enabled    ${continueButton2}      200
+    Click Button    ${continueButton2}
+
+Click Continue Button3
+    Wait Until Element Is Enabled    ${continueButton3}      200
+    Click Button    ${continueButton3}
 
 ReadExcel
     [Arguments]     ${sheetName}       ${row}     ${column}
