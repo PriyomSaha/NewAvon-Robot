@@ -56,8 +56,8 @@ Set Address
 
 Click Save Button
     Sleep    ${timeout}
+    Wait Until Element Is Enabled    ${saveButton}      200
     Click Button    ${saveButton}
-
 
 Set Additional profile details for rep
     click element    ${birthMonthConatiner}

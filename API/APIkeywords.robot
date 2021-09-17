@@ -3,6 +3,7 @@ Library    RequestsLibrary
 Library    Collections
 Library    OperatingSystem
 Library    ../PythonSupports/ApiHandler.py
+Library    ../PythonSupports/ExcelHandler.py
 Resource    APIVariables.robot
 
 *** Keywords ***
@@ -19,12 +20,20 @@ Create AE Cust
     [Arguments]    ${token}
     ${header}=  create dictionary       Authorization=${token}      Content-Type=${contentType}   Cookie=${cookies}
     ${data}=    get file    API/ApiDemoFiles/CreateCust.txt
-    ${body}=    apiTestDatarandomizer   ${data}
+    ${body}=    createAccountDatarandomizer   ${data}
     ${resp}=    POST On Session    testsession    ${profileCreationUri}    data=${body}    headers=${header}    params=${ApiKeyParameter}
-    log to console    ${resp.content}
+    Beautify JSON       ${resp.content}
 
 get profile details
     [Arguments]    ${token}
+    ${lasrRow}=   ExcelHandler.GetLastRow     Accounts
+    ${beeNumber}=   ExcelHandler.ReadCell    Accounts   ${lasrRow}  3
     ${header}=  create dictionary       Authorization=${token}      Cookie=${getCookies}
-    ${resp}=    get on session    testsession       /profile/8      headers=${header}
-    log to console    ${resp.content}
+    ${resp}=    get on session    testsession       /profile/${beeNumber}      headers=${header}       params=${ApiKeyParameter}&${formatParameter}
+    ${profDetails}=   Beautify JSON       ${resp.content}
+    Store profile details in text file      ${beeNumber}        ${profDetails}
+
+create order
+    ${data}=    get file    API/ApiDemoFiles/Order.txt
+    ${date}=    orderNumberRandomizer   ${data}
+    Beautify JSON       ${date}

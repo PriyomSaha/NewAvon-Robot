@@ -1,3 +1,5 @@
+*** Settings ***
+Library           OperatingSystem
 *** Variables ***
 # URL / URI
 ${baseUrl}      https://qa-naws.avonnow.com:10001
@@ -15,3 +17,18 @@ ${clientSecret}     RyDQ$h4!KGS=!rqb2Rtv
 ${formatParameter}      format=json
 ${tPre}    bearer
 ${contentType}      application/json
+${beeNumber}    400790
+${path}=    Output/GetProfileFor
+
+*** Keywords ***
+Beautify JSON
+    [Arguments]    ${rawData}
+    ${json}=             evaluate        json.loads('''${rawData}''')    json
+    ${json_string}=      evaluate        json.dumps(${json},indent = 3)     json
+#    log to console       \n${json_string}
+    [Return]    ${json_string}
+
+Store profile details in text file
+    [Arguments]    ${fileName}      ${data}
+    ${filePath}=    catenate    ${path}/${fileName}.txt
+    Create File    ${filePath}      ${data}     SYSTEM

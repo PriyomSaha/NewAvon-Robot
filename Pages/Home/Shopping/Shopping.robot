@@ -1,5 +1,6 @@
 *** Settings ***
 Library  SeleniumLibrary
+Library     ../../../PythonSupports/DBconnection.py
 Resource    ../../../Handlers/Keywords.robot
 Resource    ../../../Handlers/Variables.robot
 Resource    ../../../Pages/Payments/Payments.robot
@@ -65,7 +66,11 @@ Shop By Line Number
         ${temp}=   Evaluate    "${ordConfirmationText}" == "${ordConf}"
         exit for loop if    '${temp}' == 'false'
      END
-    ordernumberextractor    ${ordConf}
+    ${ordNumber}=  ordernumberextractor    ${ordConf}
+    ${isOrderpresent}=  validateOrderNumber     ${ordNumber}
+#    ${var}=     EVALUATE    type(${ordNumber})
+#    log to console      ${var}
+    log to console    The order# ${ordConf} is in ${isOrderpresent} status
 
 Add Quantity
     wait until element is enabled       ${addQtyButton}

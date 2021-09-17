@@ -69,7 +69,7 @@ Click Complete Button
 
 
 Check if account was created successfully
-    wait until element is visible    ${repAccountInfo}
+    wait until element is visible    ${repAccountInfo}      200s
 
 Save REP account Info to sheet
     [Arguments]    ${notes}

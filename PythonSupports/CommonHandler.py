@@ -34,3 +34,4 @@ def orderNumberExtractor(value):
     r = getLastRowPlusOne('Order#')
     writeCell('Order#',r,1,split[-1].replace('(','').replace(')',''))
     writeCell('Order#', r, 2, split[-2])
+    return split[-1].replace('(','').replace(')','')

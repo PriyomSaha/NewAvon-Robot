@@ -23,17 +23,14 @@ response = requests.request("POST", url, headers=headers, data=payload)
 resp = json.loads(response.text)
 token = "bearer " + resp["accessToken"]
 
-url = "https://qa-naws.avonnow.com:10001/profile/sign-up/?X-Api-Key=AABBCCDDEEFF11000171.AVP"
+url = "https://qa-naws.avonnow.com:10001/profile/8?format=json&X-Api-Key=AABBCCDDEEFF11000171.AVP"
 
-payload = json.dumps({"FirstName": fname, "LastName": lname, "EmailAddress": email, "CustomerType": "AE",
-                      "phone": {"number": "6516516515", "codeidphonetype": "HOME", "countrycode": "US"}})
 headers = {
     'Authorization': token,
-    'Content-Type': 'application/json',
-    'Cookie': 'ss-id=CKFooV6soVvJyWSvyeTp; ss-pid=StDTDyA0UONUPPtGmn7r'
+    'Cookie': 'ss-id=tuW05Z1g3eGaw8xg2ZAz; ss-pid=StDTDyA0UONUPPtGmn7r'
 }
 
-response = requests.request("POST", url, data=payload, headers=headers)
+response = requests.request("GET", url, headers=headers, data=payload)
 
 print(response.content)
 print(response.status_code)
