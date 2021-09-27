@@ -34,6 +34,9 @@ get profile details
     Store profile details in text file      ${beeNumber}        ${profDetails}
 
 create order
+    [Arguments]    ${token}
+    ${header}=  create dictionary       Authorization=${token}      Content-Type=${contentType}     Cookie=${orderCookie}
     ${data}=    get file    API/ApiDemoFiles/Order.txt
-    ${date}=    orderNumberRandomizer   ${data}
-    Beautify JSON       ${date}
+    ${body}=    orderNumberRandomizer   ${data}
+    ${resp}=    POST On Session    testsession    ${orderUri}   headers=${header}   json=${body}    params=${ApiKeyParameter}
+    Beautify JSON       ${resp.content}

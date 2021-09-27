@@ -4,7 +4,7 @@ Resource    ../../../Handlers/Keywords.robot
 Resource    ../../Profile/Profile.robot
 
 *** Variables ***
-${barLink}      //a[contains(text(),'Become a Rep')]
+${barLink}      //a[normalize-space()='BECOME A REP']
 ${joinusLink}   //a[contains(text(),'Join Us!')]
 ${repAdditionalDetailsPage}     xpath://strong[contains(text(),'Language Preference')]
 ${connectWithAvonTeam}      xpath://strong[contains(text(),'Connect with an Avon Team')]
@@ -17,7 +17,7 @@ ${completeButton}   //button[contains(text(),'Complete')]
 ${repAccountInfo}   xpath://strong[contains(text(),'Your Representative Info')]
 ${repEmailContainer}        xpath://strong[contains(text(),'Email Address')]/following-sibling::div
 ${beeNumberContainer}    xpath://strong[contains(text(),'Avon Account Number')]/following-sibling::div
-${kitRadio}   xpath://div[contains(text(),'The Best Sellers New Rep set')]
+${kitRadio}   xpath://div[contains(text(),'Best Sellers Starter Collection')]
 ${donationRadio}    xpath://div[contains(text(),'Make a Contribution')]
 #//div[@class='sc-eirqVv gZrHDm' and contains(text(),'Sign UP &  Make a Contribution')]
 ${donationAmountDropdown}   xpath://span[@class='sc-giAqHp irplsb' and contains(text(),'Select an Option')]
@@ -26,7 +26,7 @@ ${donationAmountDropdown}   xpath://span[@class='sc-giAqHp irplsb' and contains(
 Click BAR link
     Wait for Max time
     Click Element    ${barLink}
-    Click Element    ${joinusLink}
+#    Click Element    ${joinusLink}
 
 Check if additional rep details page loaded
     wait until element is visible   ${repAdditionalDetailsPage}

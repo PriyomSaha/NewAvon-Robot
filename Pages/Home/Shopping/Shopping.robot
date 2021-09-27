@@ -22,10 +22,11 @@ ${billingAddressSameAsShippingCheckbox}     (//label[starts-with(@class, 'MuiFor
 ${orderNumberContainer}     //div[@class='OrderCompletePage___StyledDiv-sc-amwobz-1 kDAgCL']/div
 
 ${sheet}    line numbers
-${Number of Products to add}    2
+${Number of Products to add}    1
 
 #TODO   Need to change to add to Cart for cust
 #TODO VARIABLE SINGLE
+#TODO cHECKOUT BUTTON fOR ue
 
 *** Keywords ***
 Shop By Line Number
@@ -70,7 +71,7 @@ Shop By Line Number
     ${isOrderpresent}=  validateOrderNumber     ${ordNumber}
 #    ${var}=     EVALUATE    type(${ordNumber})
 #    log to console      ${var}
-    log to console    The order# ${ordConf} is in ${isOrderpresent} status
+    log to console    The order# ${ordNumber} is in ${isOrderpresent} status
 
 Add Quantity
     wait until element is enabled       ${addQtyButton}

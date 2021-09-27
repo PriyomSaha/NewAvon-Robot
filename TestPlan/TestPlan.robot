@@ -3,9 +3,9 @@ Library  SeleniumLibrary
 Resource    ResourceImports.robot
 
 *** Test Cases ***
-SignUp and Login
+#SignUp and Login
 #    BAR with no cost signup
-    BAR With 30$ kit Signup
+#    BAR With 30$ kit Signup
 #    BAR With Donation Signup
 #    REP Login and Shop
 #    BAR With donation Signup and shop
@@ -19,7 +19,7 @@ SignUp and Login
 
 API
     ${token}=    Generate Token
-
+#
+    create order        ${token}
 #    Create AE Cust      ${token}
-    get profile details     ${token}
-#    create order
+#    get profile details     ${token}

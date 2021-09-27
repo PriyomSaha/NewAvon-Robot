@@ -2,7 +2,7 @@
 Library  SeleniumLibrary
 Library    ../PythonSupports/ExcelHandler.py
 Library    ../PythonSupports/CommonHandler.py
-Resource    Variables.robot
+Resource    ./Variables.robot
 
 *** Variables ***
 ${continueButton}   //button[contains(text(),'Continue')]

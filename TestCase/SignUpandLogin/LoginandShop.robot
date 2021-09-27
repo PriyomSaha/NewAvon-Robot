@@ -8,7 +8,7 @@ Resource    ./CustomerCreation.robot
 *** Keywords ***
 REP Login and Shop
     initialize
-    Logging In      400466
+    Logging In      76128988
     Shop By Line Number     rep
     Sleep    60
     teardown
@@ -54,7 +54,7 @@ create AE cust then login and Shop
     teardown
 
 create ue cust then login and shop
-    Creating UE customer
+#    Creating UE customer
     ${lasrRow}=   ExcelHandler.GetLastRow     Accounts
     ${email}=   ExcelHandler.ReadCell    Accounts   ${lasrRow}  1
     initialize

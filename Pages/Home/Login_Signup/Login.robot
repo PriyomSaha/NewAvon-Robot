@@ -1,19 +1,22 @@
 *** Settings ***
 Library  SeleniumLibrary
 Resource    ../../../Handlers/Keywords.robot
-Resource    ../../../Handlers/Variables.robot
 
 *** Variables ***
 ${signin}   xpath://button[contains(text(),'Sign In')]
 ${userid}   xpath://input[@name='signinId']
-${pass}     xpath://input[@name='password']
+${passContainer}     xpath://input[@name='password']
 ${signinSubmit}     //button[@data-testid='signin-submit']
 ${textDropdownConatiner}  xpath://div[@data-testid='mfa-selectbox']
 ${textDropdown}             xpath://li[@data-testid='mfa-text']
 ${textDropdownInput}    xpath://input[@name = 'securityCode']
 
+${wrongPass}        //p[@class='MuiFormHelperText-root MuiFormHelperText-contained Mui-error MuiFormHelperText-filled']
+
 ${forgotPassLink}       xpath://span[@class='sc-gKAaRy dnjXoY']
 ${confirmPass}          xpath://input[@name='confirmPassword']
+
+${pass}     password@1
 
 #TODO       login -> password change (with mobile no) -> final pass
 #TODO       login -> enter pass -> wrong pass -> forgot pass -> password change (without mobile no) -> final pass
@@ -23,8 +26,11 @@ ${confirmPass}          xpath://input[@name='confirmPassword']
 Logging In
     [Arguments]     ${email}
     Enter email and continue    ${email}
-    input text    ${pass}       password@1
+    input text    ${passContainer}       password@1
     click button    ${signinSubmit}
+
+    ${ifWrongPass}=     Run Keyword And Return Status    Element Should Be Visible      ${wrongPass}    10s
+    Run Keyword If    ${ifWrongPass}   Change password
     otpHandler
 
 Enter email and continue
@@ -33,6 +39,10 @@ Enter email and continue
     click element   ${signin}
     input text  ${userid}       ${email}
     Click Continue Button
+
+Enter password and click signin
+    input text    ${passContainer}         ${pass}
+    click button    ${signinSubmit}
 
 otpHandler
     click element       ${textDropdownConatiner}
@@ -46,9 +56,12 @@ Enter otp
 
 Change password
     wait for max time
-    Enter email and continue
     click element    ${forgotPassLink}
     otpHandler
-    input text    ${pass}       password@1
+    input text    ${passContainer}       password@1
     input text    ${confirmPass}    password@1
     Click Button    ${saveButton}
+    sleep    ${timeout}
+    wait until element is enabled       ${passContainer}
+    input text    ${passContainer}         password@1
+    click button    ${signinSubmit}
