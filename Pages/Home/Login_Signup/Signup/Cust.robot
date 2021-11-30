@@ -43,8 +43,8 @@ Click find a rep button
 
 Enter Rep name
     wait until element is enabled       ${firstnameinput}
-    input text    ${firstnameinput}     Gerard
-    input text    ${lastNameInput}      White
+    input text    ${firstnameinput}     AVVION
+    input text    ${lastNameInput}      JOHNSON
 
 Enter state name
     input text    ${stateCode}      New York

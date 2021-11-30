@@ -12,12 +12,15 @@ Resource    ../../Handlers/Keywords.robot
 ${isOldCardPresent}     xpath://p[contains(text(),'Please confirm that your billing address is tied t')]
 ${savedCard}        xpath://div[@class='sc-eGJWMs gQYBcx']/div/div/div/div/div
 ${creditCardCheckbox}   xpath://div[contains(text(),'Save credit card information to My Account')]
-${addCreditCardButton}      xpath://div[@role='button' and @class='CreditManagement__AddNewCreditCardButton-sc-1sd78gv-0 hUwcSA']
+${avonCreditHolder}     //div[contains(@class,'AvonCredit')]
+${addCreditCardButtonCust}      //div[@role='button' and @class='CreditManagement__AddNewCreditCardButton-sc-1sd78gv-0 hUwcSA']
+${addCreditCardButtonRep}      //div[contains(@class, 'CreditManagementWithPartialPayment___StyledDiv4')]
 ${creditCardNumberInput}    xpath://input[@placeholder='Enter Card Number']
 ${cvvInput}                 xpath://input[@placeholder='CVV']
 ${creditCardNameInput}      xpath://input[@name = 'card.cardName']
 ${expiryMonthContainer}     xpath://span[contains(text(),'MM')]
-${expiryYearContainer}      xpath://span[contains(text(),'Year')]
+${expiryYearContainerYYYY}      xpath://span[contains(text(),'YYYY')]
+${expiryYearContainerYear}      xpath://span[contains(text(),'Year')]
 
 ${cardNumberFrame}  xpath://div[@id='number-container']/iframe
 ${cardCVVFrame}      xpath://div[contains(@id,'securityCode-container')]/iframe
@@ -29,11 +32,30 @@ ${authCode}         xpath://div[@id='page-wrapper']/section/div[2]/form/input
 ${submit}           xpath://div[@id='page-wrapper']/section/div[2]/form/input[2]
 ${cancel}          xpath://div[@id='page-wrapper']/section/div[2]/form[3]/input[2]
 
+${weAcceptText}     //div[contains(text(),'We Accept')]
+
 *** Keywords ***
+Add Card For Cust
+    click element    ${addCreditCardButtonCust}
+    log to console    in cust
+
+Add Card For Rep
+    click element    ${addCreditCardButtonRep}
+    log to console    in rep
+
+Scroll down
+    scroll element into view    ${weAcceptText}
+
 Add new Credit Card
-    sleep    ${timeout}
-    wait until element is enabled    ${addCreditCardButton}
-    click element    ${addCreditCardButton}
+    wait until element is visible    ${weAcceptText}
+
+    sleep    2s
+
+    ${partialPayment}=  Run Keyword And Return Status   Element Should Be Visible   ${avonCreditHolder}     ${timeout}
+    LOG TO CONSOLE    ${partialPayment}
+    Run Keyword If    ${partialPayment}    Add Card For Rep
+    ...                ELSE         Add Card For Cust
+
     sleep    10
 
     select frame    ${cardNumberFrame}
@@ -43,17 +65,22 @@ Add new Credit Card
     ${name}=    getFullName
     input text    ${creditCardNameInput}    ${name}
 
+    Run Keyword Unless    ${partialPayment}     Scroll Down
+
     click element    ${expiryMonthContainer}
     ${expMon}=  getCardExpiryMonth
     sleep    ${timeout}
     click element    ${expMon}
 
-    click element    ${expiryYearContainer}
-    sleep    ${timeout}
+    ${presentYear}=  Run Keyword And Return Status    Element Should Be Visible     ${expiryYearContainerYear}     10s
+    Run Keyword If    ${presentYear}   click Year
+    ...     ELSE    Click YYYY
+
+    sleep    2s
     ${expYr}=  GetCardExpiryYear
-    sleep    ${timeout}
+    sleep   2s
     click element    ${expYr}
-    sleep    ${timeout}
+    sleep    2s
 
     select frame    ${cardCVVFrame}
     ${cvv}=     getCVV
@@ -62,7 +89,8 @@ Add new Credit Card
 
     click element    ${creditCardCheckbox}
 
-
+    ${continueButton2present}=  Run Keyword And Return Status    Element Should Be Visible     ${continueButton2}     3s
+    Run Keyword If    ${continueButton2present}   click continue button2
 
 click old card
     click element    ${savedCard}
@@ -72,7 +100,15 @@ click old card
     ${cvv}=     getCVV
     input text    ${cvvInput}   ${cvv}
     Unselect Frame
-#    click continue button
+
+    ${continueButton2present}=  Run Keyword And Return Status    Element Should Be Visible     ${continueButton2}     3s
+    Run Keyword If    ${continueButton2present}   click continue button2
+
+click Year
+    CLICK ELEMENT    ${expiryYearContainerYear}
+
+Click YYYY
+    CLICK ELEMENT    ${expiryYearContainerYYYY}
 
 Check if Old Card Present else add new card
     ${present}=  Run Keyword And Return Status    Element Should Be Visible     ${isOldCardPresent}     10s

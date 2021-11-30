@@ -1,5 +1,6 @@
-from ExcelHandler import writeCell,getLastRowPlusOne
-from DBconnection import checkStatus
+from ExcelHandler import writeCell, getLastRowPlusOne
+from DBconnection import checkStatus, getFinancials, getFinancialsAndStatusForReturn
+
 
 def birthDateSelector(value):
     xpath = "xpath://li[contains(text(),'"
@@ -13,104 +14,142 @@ def cardExpiryDateSelector(value):
         value = '0' + value
     return xpath + str(value) + "')]"
 
+
 def donationAmountSelector(value):
     xpath = "//div[@class='sc-bYwzuL fDDjHD']/div/li["
     return xpath + str(value) + "]"
 
-def orderNumberExtractor(value):
 
+def orderNumberExtractor(value):
     split = value.split()
     r = getLastRowPlusOne('Order#')
-    writeCell('Order#',r,1,split[-1].replace('(','').replace(')',''))
+    writeCell('Order#', r, 1, split[-1].replace('(', '').replace(')', ''))
     writeCell('Order#', r, 2, split[-2])
-    return split[-1].replace('(','').replace(')','')
+    return split[-1].replace('(', '').replace(')', '')
 
 
 def toCheckOrders():
-    l = ["AVR2109200081341 (100091459)",
-"AVR2109200081346 (100091462)",
-"AVR2109200081349 (100091463)",
-"AVR2109200081355 (100091467)",
-"AVR2109200081357 (100091468)",
-"AVR2109210081458 (100091519)",
-"AVR2109200081363 (100091472)",
-"AVR2109200081374 (100091479)",
-"AVR2109200081381 (100091482)",
-"AVR2109200081424 (100091502)",
-"AVR2109200081428 (100091505)",
-"AVR2109200081432 (100091507)",
-"AVR2109200081430 (100091506)",
-"AVR2109200081388 (100091485)",
-"AVR2109200081395 (100091488)",
-"AVR2109200081385 (100091484)",
-"AVR2109200081405 (100091490)",
-"AVR2109210081444 (100091514)",
-"AVR2109210081453 (100091517)",
-"AVR2109210081475 (100091526)",
-"AVR2109210081462 (100091521)",
-"AVR2109210081456 (100091518)",
-"AVR2109210081466 (100091522)",
-"AVR2109220081603 (100091588)",
-"AVR2109200081367 (100091474)",
-"AVR2109200081412 (100091494)",
-"AVR2109200081351 (100091464)",
-"AVR2109200081344 (100091460)",
-"AVR2109210081444 (100091514)",
-"AVR2109210081453 (100091517)",
-"AVR2109210081493 (100091535)",
-"AVR2109210081480 (100091527)",
-"AVR2109210081485 (100091530)",
-"AVR2109210081488 (100091531)",
-"AVR2109200081399 (100091489)",
-"AVR2109210081507 (100091539)",
-"AVC2109200081366 (100091473)",
-"AVC2109200081372 (100091477)",
-"AVC2109210081473 (100091525)",
-"AVC2109210081491 (100091533)",
-"AVC2109210081516 (100091545)",
-"AVC2109200081407 (100091491)",
-"AVR2109230081668 (100091635)",
-"AVC2109200081409 (100091492)",
-"AVC2109220081607 (100091590)",
-"AVC2109230081666 (100091634)",
-"AVC2109210084505 (100091538)",
-"AVC2109200081436 (100091510)",
-"AVC2109200081437 (100091511)",
-"AVC2109200081438 (100091512)",
-"AVC2109200081379 (100091481)",
-"AVC2109200081416 (100091497)",
-"AVC2109210081492 (100091534)",
-"AVC2109210081513 (100091542)",
-"AVC2109210081490 (100091532)",
-"AVC2109200081426 (100091503)",
-"AVC2109210081510 (100091540)",
-"AVC2109210081461 (100091520)",
-"AVC2109200081415 (100091496)",
-"AVC2109200081420 (100091499)",
-"AVG2109230081677 (100091640)",
-"AVG2109200081435 (100091509)",
-"AVG2109210081469 (100091523)",
-"AVG2109210081499 (100091537)",
-"AVG2109210081512 (100091541)",
-"AVG2109210081471 (100091524)",
-"AVC2109210081484 (100091529)",
-"AVG2109200081369 (100091475)",
-"AVG2109200081360 (100091470)",
-"AVG2109200081354 (100091466)",
-"AVC2109200081383 (100091483)",
-"AVC2109200081390 (100091486)",
-"AVR2109200081393 (100091487)",
-"AVG2109200081410 (100091493)",
-"AVG2109200081418 (100091498)",
-"AVG2109200081421 (100091500)",
-"AVC2109200081422 (100091501)",
-"AVC2109200081427 (100091504)",
-"AVG2109230081659 (100091628)",
-"AVR2109230081664 (100091633)",
-"AVG2109240081693 (100091651)"
-]
+    l = ["AVR2110210083105 (100092415)",
+         "AVR2110210083112 (100092418",
+         " AVR2110210083119 (100092421)",
+         "AVR2110210083129 (100092424)",
+         "",
+         "AVR2110210083131 (100092425)",
+         "AVR2110210083133 (100092426)",
+         "AVR2110210083135 (100092427)",
+         "AVR2110210083201 (100092461)",
+         "",
+         "AVR2110210083196 (100092458)",
+         "AVC2110210083137 (100092428)",
+         "AVC2110210083140 (100092430)",
+         "AVC2110210083188 (100092454)",
+         "AVC2110210083143 (100092432)",
+         "",
+         "AVC2110210083146 (100092434)",
+         "AVC2110210083151 (100092436)",
+         "AVC2110210083154 (100092438)",
+         "AVG2110210083158 (100092440)",
+         "AVG2110210083161 (100092442)",
+         ]
 
     for value in l:
         split = value.split()
-        checkStatus(split[-1].replace('(', '').replace(')', ''))
+        # To check the order Status
+        # checkStatus(split[-1].replace('(', '').replace(')', ''))
+
+        # To get the financial transactions
+        sheet = 'Fin Trans R3'
+        r = getLastRowPlusOne(sheet)
+
+        if len(split) == 0:
+            writeCell(sheet, r, 1, '')
+        else:
+            trans = getFinancials(split[-1].replace('(', '').replace(')', ''))
+            writeCell(sheet, r, 1, split[-1].replace('(', '').replace(')', ''))
+            writeCell(sheet, r, 2, trans)
+
+
 # toCheckOrders()
+
+def toCheckReturn():
+    sheet = 'Fin Trans R3'
+    l = ["RMA# 0000002205",
+         "RMA# 0000002207",
+         "RMA# 0000002214",
+         "RMA# 0000002204",
+         "RMA# 0000002211",
+         "RMA# 0000002212",
+         "RMA #0000002209",
+         "RMA #0000002206",
+         "RMA #0000002215",
+         "RMA #0000002208",
+         "RMA #0000002213",
+         "RMA #0000002210",
+         "",
+         "RMA #0000002221",
+         "RMA #0000002204",
+         "RMA #0000002223",
+         "RMA #0000002225",
+         "RMA #0000002227",
+         "",
+         "RMA #0000002228",
+         "RMA #0000002226",
+         "",
+         "RMA #0000002231",
+         "RMA #0000002236",
+         "",
+         "",
+         "",
+         "RMA #0000002224",
+         "RMA #0000002233",
+         "RMA #0000002229",
+         "RMA #0000002234",
+         "RMA #0000002235",
+         "RMA #0000002230",
+         "RMA #0000002232"
+         ]
+    for value in l:
+        r = getLastRowPlusOne(sheet)
+        if len(value) == 0:
+            writeCell(sheet, r, 1, '')
+            # print()
+        else:
+            split = value.replace('RMA', '').replace('#', '').replace(' ', '')
+            trans = getFinancialsAndStatusForReturn(split)
+            writeCell(sheet, r, 1, split)
+            writeCell(sheet, r, 2, trans)
+            # print(trans)
+
+
+toCheckReturn()
+
+
+def lineNumberExtractor(value):
+    return value.replace('-', '')
+
+
+def qtyExtractor(value):
+    return value.replace('QTY ', '')
+
+
+def creatingProductDetails(productsList, qtysList):
+    length = len(productsList)
+    productDetails = {}
+    for i in range(0, length):
+        productDetails[productsList[i]] = qtysList[i]
+
+    return productDetails
+
+
+def validateDBandSaturnProductDetails(prodDetailsSaturn, prodDetailsDB):
+    isPresent = True
+    for key, val in prodDetailsSaturn.items():
+        if prodDetailsDB[key] != val:
+            isPresent = False
+
+    return isPresent
+
+
+def orderHistoryOrderSplitter(value):
+    split = value.split()
+    return split[-1]

@@ -4,6 +4,7 @@ Library    Collections
 Library    OperatingSystem
 Library    ../PythonSupports/ApiHandler.py
 Library    ../PythonSupports/ExcelHandler.py
+Library    ../PythonSupports/DBconnection.py
 Resource    APIVariables.robot
 
 *** Keywords ***
@@ -40,3 +41,7 @@ create order
     ${body}=    orderNumberRandomizer   ${data}
     ${resp}=    POST On Session    testsession    ${orderUri}   headers=${header}   json=${body}    params=${ApiKeyParameter}
     Beautify JSON       ${resp.content}
+    ${lastRow}=   ExcelHandler.GetLastRow     API Order#
+    ${ordNumber}=   ExcelHandler.ReadCell    API Order#   ${lastRow}  1
+#    ${isOrderPresentInDB}=  DBconnection.validateOrderNumber     ${ordNumber}
+#    log to console    The order# ${ordNumber} is in ${isOrderPresentInDB} status

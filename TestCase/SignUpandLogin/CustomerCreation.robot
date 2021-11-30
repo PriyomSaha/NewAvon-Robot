@@ -31,6 +31,7 @@ Creating AE customer
     Set Mobile
     Accept Customer agreement
     Click Create Account Button
+    Enter Otp
     Check if cust account created successfully
     Click find a rep button
     Enter Rep name

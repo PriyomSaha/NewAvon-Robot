@@ -5,7 +5,7 @@ Resource    ../../Profile/Profile.robot
 
 *** Variables ***
 ${barLink}      //a[normalize-space()='BECOME A REP']
-${joinusLink}   //a[contains(text(),'Join Us!')]
+${joinusLink}   //button[contains(text(),'Join Us')]
 ${repAdditionalDetailsPage}     xpath://strong[contains(text(),'Language Preference')]
 ${connectWithAvonTeam}      xpath://strong[contains(text(),'Connect with an Avon Team')]
 ${selectButton}         //button[contains(text(),'Select')]
@@ -21,12 +21,16 @@ ${kitRadio}   xpath://div[contains(text(),'Best Sellers Starter Collection')]
 ${donationRadio}    xpath://div[contains(text(),'Make a Contribution')]
 #//div[@class='sc-eirqVv gZrHDm' and contains(text(),'Sign UP &  Make a Contribution')]
 ${donationAmountDropdown}   xpath://span[@class='sc-giAqHp irplsb' and contains(text(),'Select an Option')]
+${ageAggrementCheckbox}     xpath://span[@class='MuiIconButton-label-183']
 
 *** Keywords ***
 Click BAR link
     Wait for Max time
     Click Element    ${barLink}
-#    Click Element    ${joinusLink}
+    Click Element    ${joinusLink}
+
+Accept age aggrement
+    click element    ${ageAggrementCheckbox}
 
 Check if additional rep details page loaded
     wait until element is visible   ${repAdditionalDetailsPage}
@@ -43,12 +47,15 @@ Click Continue to your signup button
 
 Click 30$ radio button
     wait until element is enabled    ${kitradio}
+    sleep    3
     click element    ${kitradio}
 
 click donation radio button and select donation amount
     Wait Until Element Is Enabled    ${donationRadio}
+    Scroll Element Into View    ${donationRadio}
     click element    ${donationRadio}
     Wait Until Element Is Enabled    ${donationAmountDropdown}
+    scroll element into view    ${donationAmountDropdown}
     click element    ${donationAmountDropdown}
     ${donAmt}=  getDonationAmount
     click element    ${donAmt}
@@ -59,7 +66,8 @@ Click Continue to last step button
     click button    ${lastStepContinueButton}
 
 Accept aggrements
-    Scroll Element Into View    ${aggrement1Checkbox}
+    execute javascript    window.scrollTo(0,0)
+    Sleep    2s
     click element   ${aggrement1Checkbox}
     click element    ${aggrement2checkbox}
 

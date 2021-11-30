@@ -1,6 +1,7 @@
 *** Settings ***
 Library  SeleniumLibrary
 Resource    ../../../Handlers/Keywords.robot
+Resource    ../Profile/Profile.robot
 
 *** Variables ***
 ${signin}   xpath://button[contains(text(),'Sign In')]
@@ -10,6 +11,8 @@ ${signinSubmit}     //button[@data-testid='signin-submit']
 ${textDropdownConatiner}  xpath://div[@data-testid='mfa-selectbox']
 ${textDropdown}             xpath://li[@data-testid='mfa-text']
 ${textDropdownInput}    xpath://input[@name = 'securityCode']
+
+${waitUntilAccountActivated}    xpath://strong[contains(text(),'Welcome back, please sign in.')]
 
 ${wrongPass}        //p[@class='MuiFormHelperText-root MuiFormHelperText-contained Mui-error MuiFormHelperText-filled']
 
@@ -26,12 +29,20 @@ ${pass}     password@1
 Logging In
     [Arguments]     ${email}
     Enter email and continue    ${email}
+
+    ${accDeactivated}=  Run Keyword And Return Status    Element Should Be Visible      ${textDropdownInput}    ${timeout}
+    Run Keyword If    ${accDeactivated}     Activate account and change password
+
+    wait until element is enabled    ${passContainer}
     input text    ${passContainer}       password@1
     click button    ${signinSubmit}
 
-    ${ifWrongPass}=     Run Keyword And Return Status    Element Should Be Visible      ${wrongPass}    10s
+    ${ifWrongPass}=     Run Keyword And Return Status    Element Should Be Visible      ${wrongPass}    ${timeout}
     Run Keyword If    ${ifWrongPass}   Change password
-    otpHandler
+
+    ${otpHandlerPresent}=     Run Keyword And Return Status    Element Should Be Visible      ${textDropdownConatiner}    ${timeout}
+    Run Keyword If    ${otpHandlerPresent}   otpHandler
+    ...     ELSE    enter otp
 
 Enter email and continue
     [Arguments]     ${email}
@@ -39,6 +50,15 @@ Enter email and continue
     click element   ${signin}
     input text  ${userid}       ${email}
     Click Continue Button
+
+Activate account and change password
+    Enter Otp
+    input text    ${passContainer}       password@1
+    input text    ${confirmPass}    password@1
+    Set Mobile
+    Click Button    ${saveButton}
+    sleep    ${timeout}
+
 
 Enter password and click signin
     input text    ${passContainer}         ${pass}
@@ -50,7 +70,11 @@ otpHandler
     Click Continue Button
     enter otp
 
-Enter otp
+Enter Otp
+    ${otpBoxPresent}=     Run Keyword And Return Status    Element Should Be Visible      ${textDropdownInput}    ${timeout}
+    Run Keyword If    ${otpBoxPresent}   Input code
+
+Input code
     input text    ${textDropdownInput}  111111
     Click Continue Button
 

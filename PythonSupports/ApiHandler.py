@@ -4,6 +4,8 @@ import RandomData as rd
 import random
 import datetime
 
+from ExcelHandler import writeCell, getLastRowPlusOne
+
 email = rd.getCustEmail()
 fname = rd.getFirstName()
 lname = rd.getLastName()
@@ -17,4 +19,6 @@ def createAccountDatarandomizer(data):
 
 def orderNumberRandomizer(data):
     updatedData = data.replace('{{externalOrderId}}',str(ordNum)).replace('{{currentDate}}',date)
+    r = getLastRowPlusOne('API Order#')
+    writeCell('API Order#', r, 1,str(ordNum))
     return json.loads(updatedData)

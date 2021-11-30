@@ -21,6 +21,7 @@ BAR with no cost signup
     Run Keyword If  "${language}"=="${spanish}"    Set Language as Spanish
     Set Additional profile details for rep
     Set Address
+    Accept age aggrement
     click continue button
     Click Save Button
     Check if Connect with an Avon Team page loaded
@@ -47,6 +48,7 @@ BAR With 30$ kit Signup
     Run Keyword If  "${language}"=="${spanish}"    Set Language as Spanish
     Set Additional profile details for rep
     Set Address
+    Accept age aggrement
     click continue button
     Click Save Button
     Check if Connect with an Avon Team page loaded
@@ -76,6 +78,7 @@ BAR With Donation Signup
     Run Keyword If  "${language}"=="${spanish}"    Set Language as Spanish
     Set Additional profile details for rep
     Set Address
+    Accept age aggrement
     click continue button
     Click Save Button
     Check if Connect with an Avon Team page loaded

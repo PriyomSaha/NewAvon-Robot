@@ -10,9 +10,10 @@ ${lastNameInput}    xpath://input[@name='lastName']
 ${shipppinglastNameInput}         xpath://input[@name='shippingAddress.lastName']
 ${emailInput}       xpath://input[@name='emailAddr']
 ${emailRenteredInput}   xpath://input[@name='emailAddrReEntered']
+${emailRenteredInputCust}   xpath://input[@name='confirmEmailAddr']
 ${pass}                 xpath://input[@name='password']
 ${mobInput}     xpath://input[@name='phoneNumber']
-${spanishRadioButton}   xpath://div[contains(text(),'Español')]
+${spanishRadioButton}   xpath://div[contains(text(),'Spanish')]
 ${birthMonthConatiner}       xpath://span[contains(text(),'MM')]
 ${birthDayConatiner}        xpath://span[contains(text(),'DD')]
 ${birthYearConatiner}       xpath://span[contains(text(),'YYYY')]
@@ -37,7 +38,7 @@ set rep email
 set cust email
     ${email}=   GetCustEmail
     input text      ${emailInput}           ${email}
-    input text      ${emailRenteredInput}   ${email}
+    input text      ${emailRenteredInputCust}   ${email}
 
 Set Password
     input text    ${pass}       password@1
