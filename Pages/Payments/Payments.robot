@@ -1,8 +1,8 @@
 *** Settings ***
 Library    SeleniumLibrary
 Library    ../../PythonSupports/RandomData.py
-Library    ../PythonSupports/CommonHandler.py
-Library    ../PythonSupports/ExcelHandler.py
+Library    ../../PythonSupports/CommonHandler.py
+Library    ../../PythonSupports/ExcelHandler.py
 Resource    ../../Handlers/Variables.robot
 Resource    ../../Handlers/Keywords.robot
 
