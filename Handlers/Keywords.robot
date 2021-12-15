@@ -1,5 +1,6 @@
 *** Settings ***
 Library  SeleniumLibrary
+Library  ../PythonSupports/DriverManager.py
 Library    ../PythonSupports/ExcelHandler.py
 Library    ../PythonSupports/CommonHandler.py
 Resource    ./Variables.robot
@@ -15,8 +16,9 @@ Wait for Max time
     set selenium implicit wait    20seconds
 
 initialize
-#    moveFiles
-    Create Webdriver     ${browser}  executable_path=C:/Users/848913/PycharmProjects/Driver/chromedriver.exe
+    ${chromedriver_path}=   DriverManager.Get Chromedriver Path
+    Create Webdriver     ${browser}   executable_path=${chromedriver_path}
+    Log To Console    chrome driver executed
     Go To   ${URL}
     Maximize Browser Window
     Sleep   ${timeout}

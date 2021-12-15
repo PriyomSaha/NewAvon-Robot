@@ -59,7 +59,7 @@ Add new Credit Card
     sleep    10
 
     select frame    ${cardNumberFrame}
-    input text      ${creditCardNumberInput}        4111 1111 1111 1111
+    input text      ${creditCardNumberInput}        4916182515732031
     unselect frame
 
     ${name}=    getFullName

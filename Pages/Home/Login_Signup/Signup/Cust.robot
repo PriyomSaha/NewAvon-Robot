@@ -1,6 +1,6 @@
 *** Settings ***
 Library  SeleniumLibrary
-Resource    ../../../Handlers/Keywords.robot
+Resource    ../../../../Handlers/Keywords.robot
 Resource    ../../Profile/Profile.robot
 Resource    ../Login.robot
 *** Variables ***
