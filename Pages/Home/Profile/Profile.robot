@@ -65,7 +65,6 @@ Set Additional profile details for rep
     ${birthMonth}=  getBirthMonth
     sleep    ${timeout}
     click element   ${birthMonth}
-    log to console  ${birthMonth}
 
     click element    ${birthDayConatiner}
     ${birthDay}=  getBirthDay

@@ -10,6 +10,7 @@ ${continueButton}   //button[contains(text(),'Continue')]
 ${continueButton2}  (//button[contains(text(),'Continue')])[position()=2]
 ${continueButton3}  (//button[contains(text(),'Continue')])[position()=3]
 ${saveButton}    //button[contains(text(),'Save')]
+${sideMenuButton}   //button[@class='MuiButtonBase-root MuiFab-root MuiSpeedDial-fab MuiFab-extended MuiFab-secondary']
 
 *** Keywords ***
 Wait for Max time
@@ -22,6 +23,7 @@ initialize
     Go To   ${URL}
     Maximize Browser Window
     Sleep   ${timeout}
+    Remove Side Menu Button
 
 teardown
     close browser
@@ -42,3 +44,9 @@ ReadExcel
     [Arguments]     ${sheetName}       ${row}     ${column}
     ${data}=        readcell    ${sheetName}       ${row}     ${column}
     [Return]    ${data}
+
+Remove Side Menu Button
+    wait until element is visible    ${sideMenuButton}
+    execute javascript
+    ...  var elements=document.getElementsByClassName('MuiButtonBase-root MuiFab-root MuiSpeedDial-fab MuiFab-extended MuiFab-secondary');
+    ...  elements[0].parentNode.removeChild(elements[0]);

@@ -19,7 +19,6 @@ ${repEmailContainer}        xpath://strong[contains(text(),'Email Address')]/fol
 ${beeNumberContainer}    xpath://strong[contains(text(),'Avon Account Number')]/following-sibling::div
 ${kitRadio}   xpath://div[contains(text(),'Best Sellers Starter Collection')]
 ${donationRadio}    xpath://div[contains(text(),'Make a Contribution')]
-#//div[@class='sc-eirqVv gZrHDm' and contains(text(),'Sign UP &  Make a Contribution')]
 ${donationAmountDropdown}   xpath://span[@class='sc-giAqHp irplsb' and contains(text(),'Select an Option')]
 ${ageAggrementCheckbox}     xpath://span[@class='MuiIconButton-label-183']
 

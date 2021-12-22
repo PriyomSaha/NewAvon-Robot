@@ -35,6 +35,7 @@ ${makePaymentButton}    //button[contains(text(),'Make A Payment')]
 ${payAvonContinueButton}    //span[contains(text(),'Continue')]
 ${payAvonSubmitButton}    //button[contains(text(),'Submit')]
 ${payAvonOkButton}      //button[contains(text(),'Ok')]
+${toMakeCursorFree}     //h1[contains(text(),'Shop by Product')]
 
 
 *** Keywords ***
@@ -43,6 +44,7 @@ Shop By Line Number
     Wait for Max time
     Sleep    ${timeout}
     Go To       ${shopByProductNumberUrl}
+    log to console  Shop by line number page loaded
     FOR     ${i}    IN RANGE    0   ${Number of Products to add}
         ${row}=     Evaluate    ${i}+1
         ${lineNo}=    ReadExcel      ${sheet}   ${row}    1
@@ -57,8 +59,9 @@ Shop By Line Number
 
         Run Keyword If    '${userType}' == 'rep'    click add to cart button for rep
         ...     ELSE    click add to cart button for cust
+        click element   ${toMakeCursorFree}
         Sleep    ${timeout}
-        click element   ${productsearchtextbox}
+        Log To Console  Product-${lineNo}
     END
     Complete the checkout flow  ${userType}
 
@@ -71,6 +74,7 @@ Complete the checkout flow
     Run Keyword If    '${userType}' == 'rep'    Checkout steps for REP
     ...     ELSE    Checkout steps for Cust
 
+    Log To Console    Entering Payment section
     Check if Old Card Present else add new card
 
     execute javascript    window.scrollTo(0,0)

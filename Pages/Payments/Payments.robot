@@ -35,13 +35,13 @@ ${cancel}          xpath://div[@id='page-wrapper']/section/div[2]/form[3]/input[
 ${weAcceptText}     //div[contains(text(),'We Accept')]
 
 *** Keywords ***
-Add Card For Cust
+Add Card when No Avon Credit available
     click element    ${addCreditCardButtonCust}
-    log to console    in cust
+    log to console    No avon credit
 
-Add Card For Rep
+Add Card when Avon Credit available
     click element    ${addCreditCardButtonRep}
-    log to console    in rep
+    log to console    Available Avon credit
 
 Scroll down
     scroll element into view    ${weAcceptText}
@@ -52,9 +52,8 @@ Add new Credit Card
     sleep    2s
 
     ${partialPayment}=  Run Keyword And Return Status   Element Should Be Visible   ${avonCreditHolder}     ${timeout}
-    LOG TO CONSOLE    ${partialPayment}
-    Run Keyword If    ${partialPayment}    Add Card For Rep
-    ...                ELSE         Add Card For Cust
+    Run Keyword If    ${partialPayment}    Add Card when Avon Credit available
+    ...                ELSE         Add Card when No Avon Credit available
 
     sleep    10
 

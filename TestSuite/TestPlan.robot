@@ -14,9 +14,9 @@ SignUp and Login
 #    BAR With 30$ Signup and shop
 #    create AE cust then login and Shop
 #    create ue cust then login and shop
-#    REP Login and Shop
+    REP Login and Shop
 #    UE cust login and shop
-    AE cust login and shop
+#    AE cust login and shop
 #    Order number validation between saturn and prowess
 
 #API
