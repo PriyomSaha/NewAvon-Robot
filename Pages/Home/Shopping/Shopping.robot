@@ -23,7 +23,7 @@ ${billingAddressSameAsShippingCheckbox}     (//label[starts-with(@class, 'MuiFor
 ${orderNumberContainer}     //div[contains(@class,'OrderCompletePage___StyledDiv-sc-amwobz')]/div
 
 ${sheet}    line numbers
-${Number of Products to add}    5
+${Number of Products to add}    10
 
 ${seeMoreLineNoButton}  //button[contains(text(),'See More')]
 ${lineNoContainer}      xpath://div[contains(@class, 'Item___StyledDiv5-sc-1ldjd0n-15')]
@@ -45,7 +45,7 @@ Shop By Line Number
     Sleep    ${timeout}
     Go To       ${shopByProductNumberUrl}
     log to console  Shop by line number page loaded
-    FOR     ${i}    IN RANGE    0   ${Number of Products to add}
+    FOR     ${i}    IN RANGE    1   ${Number of Products to add}
         ${row}=     Evaluate    ${i}+1
         ${lineNo}=    ReadExcel      ${sheet}   ${row}    1
         ${quantity}=    ReadExcel      ${sheet}     ${row}    2

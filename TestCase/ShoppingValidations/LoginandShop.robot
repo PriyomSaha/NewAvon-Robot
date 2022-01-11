@@ -8,8 +8,8 @@ Resource    ../SignUpandLogin/CustomerCreation.robot
 *** Keywords ***
 REP Login and Shop
     ${email}=   DBconnection.ToGetRandomAccountFromDb    REP
+    Log To Console    logging in with ${email}
     Logging In      ${email}
-    Log To Console    logged in with ${email}
     Shop By Line Number     rep
 
 REP shopping
@@ -41,14 +41,14 @@ create ue cust then login and shop
 
 UE cust login and shop
     ${email}=   DBconnection.ToGetRandomAccountFromDb    UE
+    Log To Console    logging in with ${email}
     Logging In      ${email}
-    Log To Console    logged in with ${email}
     Shop By Line Number     UE
     Sleep    30
 
 AE cust login and shop
     ${email}=   DBconnection.ToGetRandomAccountFromDb    AE
+    Log To Console    logging in with ${email}
     Logging In      ${email}
-    Log To Console    logged in with ${email}
     Shop By Line Number     AE
     Sleep    30

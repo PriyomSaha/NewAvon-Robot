@@ -6,6 +6,7 @@ Resource    ../Profile/Profile.robot
 *** Variables ***
 ${signin}   xpath://button[contains(text(),'Sign In')]
 ${userid}   xpath://input[@name='signinId']
+${emailNotRecognizedContainer}     xpath://p[@class='MuiFormHelperText-root MuiFormHelperText-contained Mui-error MuiFormHelperText-filled']
 ${passContainer}     xpath://input[@name='password']
 ${signinSubmit}     //button[@data-testid='signin-submit']
 ${textDropdownConatiner}  xpath://div[@data-testid='mfa-selectbox']
@@ -21,14 +22,12 @@ ${confirmPass}          xpath://input[@name='confirmPassword']
 
 ${pass}     password@1
 
-#TODO       login -> password change (with mobile no) -> final pass
-#TODO       login -> enter pass -> wrong pass -> forgot pass -> password change (without mobile no) -> final pass
-#TODO continue button -> email and pass in excel --- done
 *** Keywords ***
 
 Logging In
     [Arguments]     ${email}
     Enter email and continue    ${email}
+#    Enter email and continue    deanna.mannion@avonusa.com
 
     ${accDeactivated}=  Run Keyword And Return Status    Element Should Be Visible      ${textDropdownInput}    ${timeout}
     Run Keyword If    ${accDeactivated}     Activate account and change password
@@ -43,6 +42,8 @@ Logging In
     ${otpHandlerPresent}=     Run Keyword And Return Status    Element Should Be Visible      ${textDropdownConatiner}    ${timeout}
     Run Keyword If    ${otpHandlerPresent}   otpHandler
     ...     ELSE    enter otp
+
+
 
 Enter email and continue
     [Arguments]     ${email}

@@ -55,7 +55,7 @@ def toFetchLineNoAndQtyForOrder(ordNum):
 
 def toGetRandomAccountFromDb(accType):
     c = random.choice(string.ascii_letters)
-    queryForGettingRandomAcc = "select bc.EMAILADDRESS , bb.BEENUMBER, gc.LEVELID, gen.STATUSTEXT, gc.LevelName from BeeCommunication  bc INNER JOIN BEEBUSINESS bb ON bb.BeeEntityGuid = bc.BeeEntityGuid Join GENCOMPLEVEL gc on  gc.GENCOMPLEVELGUID = bb.GENCOMPLEVELGUID inner join GENSTATUS gen on gen.GENSTATUSGUID = bb.GENSTATUSGUID  where gc.LEVELID ='" + accType + "' and gen.STATUSTEXT = 'Active' and bc.EMAILADDRESS not like '%loadrunner.com' and bc.EMAILADDRESS not like '%mailinator%' and bc.EMAILADDRESS like '" + c + "%'"
+    queryForGettingRandomAcc = "select bc.EMAILADDRESS , bb.BEENUMBER, gc.LEVELID, gen.STATUSTEXT, gc.LevelName from BeeCommunication  bc INNER JOIN BEEBUSINESS bb ON bb.BeeEntityGuid = bc.BeeEntityGuid Join GENCOMPLEVEL gc on  gc.GENCOMPLEVELGUID = bb.GENCOMPLEVELGUID inner join GENSTATUS gen on gen.GENSTATUSGUID = bb.GENSTATUSGUID  where gc.LEVELID ='" + accType + "' and gen.STATUSTEXT = 'Active' and bc.EMAILADDRESS not like '%loadrunner.com' and bc.EMAILADDRESS not like '%mailinator%' and bc.EMAILADDRESS not like 'deanna.mannion@avonusa.com' and bc.EMAILADDRESS like '" + c + "%'"
     cursor.execute(queryForGettingRandomAcc)
     data = cursor.fetchall()
     return (data[0][0])
@@ -76,15 +76,28 @@ def toGetProwessOrderNumberAlongWithWarehouse(ordNum):
 
     return orderDetails
 
-
+# ignore - not for frame work
 def getFinancials(ordNum):
     query = "select (TransactionCode +'.'+ TransactionBIDSCode) As [TransactionCode],tc.tranDesc from CST_FinancialTransactions ct LEFT JOIN CST_TranCodes tc ON ct.TransactionCode = tc.TranCode AND ct.TransactionBIDSCode = tc.SubCode where ct.OrderNumber IN ('" + ordNum + "')"
     cursor.execute(query)
     data = cursor.fetchall()
     return str(data)
-
+# ignore - not for frame work
 def getFinancialsAndStatusForReturn(rma):
     query = "SELECT rma.RMANumber,cdd.CodeId AS [RMAStatus],(cst.TransactionCode +'.'+ cst.TransactionBIDSCode) As [TransactionCode],tc.tranDesc from RMAMaster rma  full JOIN CddCode cdd ON cdd.CddCodeGuid = rma.CddCodeGuidRMAStatus full JOIN CST_FinancialTransactions cst ON cst.OrderNumber = rma.RMANumber full JOIN CST_TranCodes tc ON cst.TransactionCode = tc.TranCode AND cst.TransactionBIDSCode = tc.SubCode where rma.RMANumber = '" + rma + "'"
     cursor.execute(query)
     data = cursor.fetchall()
     return str(data)
+
+def queryForGettingLineNumbers(camp):
+    queryForGettingLineNumbers = "select top 1500 Line_No from CST_ImisData cid where Campaign_Id ='" + camp + "'and MSet_Component_Tag not like 'MC' and BSet_Component_Tag not like 'BC' and MSet_Component_Tag not like 'MS' and BSet_Component_Tag not like 'BS' and (Profile_Name like  '%ring%' or Profile_Name like '%perfume%') and Special_Handling1_Cd = '' and cid.Regular_Price > 10"
+    cursor.execute(queryForGettingLineNumbers)
+    data = cursor.fetchall()
+    # to load the data fetched from DB to a list
+    for d in data:
+        l.append(d)
+    length = len(l)
+    prod=[]
+    for i in range(0, length):
+        prod.append(l[i][0])
+    return prod

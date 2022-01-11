@@ -46,7 +46,7 @@ ReadExcel
     [Return]    ${data}
 
 Remove Side Menu Button
-    wait until element is visible    ${sideMenuButton}
-    execute javascript
+    ${sideMenuButtonVisible}=   Run Keyword And Return Status   wait until element is visible    ${sideMenuButton}      10s
+    Run Keyword If    ${sideMenuButtonVisible}      execute javascript
     ...  var elements=document.getElementsByClassName('MuiButtonBase-root MuiFab-root MuiSpeedDial-fab MuiFab-extended MuiFab-secondary');
     ...  elements[0].parentNode.removeChild(elements[0]);
