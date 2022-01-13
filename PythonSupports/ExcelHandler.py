@@ -56,7 +56,7 @@ def createAndDeleteSheet():
     workbook.remove_sheet(workbook.get_sheet_by_name('Additional'))
     workbook.save(path)
 
-def writeNewDataToSheet():
+def writeNewDataToSheet(camp):
     #LineNumber
     r = getLastRow('line numbers')
     writeCell('line numbers',r,1,'Line#')
@@ -73,7 +73,7 @@ def writeNewDataToSheet():
     writeCell('Accounts', r, 4, 'Notes')
 
     # Entering product numbers from DB in sheet line numbers
-    products = queryForGettingLineNumbers('202203')
+    products = queryForGettingLineNumbers(camp)
     for prod in products:
         r = getLastRowPlusOne('line numbers')
         writeCell('line numbers',r,1,prod)

@@ -10,6 +10,6 @@ def deletingScreeShots():
         if image.endswith(".png"):
             os.remove(os.path.join(folder_path, image))
 
-# deletingScreeShots()
+deletingScreeShots()
 createAndDeleteSheet()
-writeNewDataToSheet()
+writeNewDataToSheet('202203')

@@ -55,7 +55,7 @@ def toFetchLineNoAndQtyForOrder(ordNum):
 
 def toGetRandomAccountFromDb(accType):
     c = random.choice(string.ascii_letters)
-    queryForGettingRandomAcc = "select bc.EMAILADDRESS , bb.BEENUMBER, gc.LEVELID, gen.STATUSTEXT, gc.LevelName from BeeCommunication  bc INNER JOIN BEEBUSINESS bb ON bb.BeeEntityGuid = bc.BeeEntityGuid Join GENCOMPLEVEL gc on  gc.GENCOMPLEVELGUID = bb.GENCOMPLEVELGUID inner join GENSTATUS gen on gen.GENSTATUSGUID = bb.GENSTATUSGUID  where gc.LEVELID ='" + accType + "' and gen.STATUSTEXT = 'Active' and bc.EMAILADDRESS not like '%loadrunner.com' and bc.EMAILADDRESS not like '%mailinator%' and bc.EMAILADDRESS not like 'deanna.mannion@avonusa.com' and bc.EMAILADDRESS like '" + c + "%'"
+    queryForGettingRandomAcc = "select bc.EMAILADDRESS , bb.BEENUMBER, gc.LEVELID, gen.STATUSTEXT, gc.LevelName from BeeCommunication  bc INNER JOIN BEEBUSINESS bb ON bb.BeeEntityGuid = bc.BeeEntityGuid Join GENCOMPLEVEL gc on  gc.GENCOMPLEVELGUID = bb.GENCOMPLEVELGUID inner join GENSTATUS gen on gen.GENSTATUSGUID = bb.GENSTATUSGUID  where gc.LEVELID ='" + accType + "' and gen.STATUSTEXT = 'Active' and bc.EMAILADDRESS not like '%loadrunner.com' and bc.EMAILADDRESS not like '%mailinator%' and bc.EMAILADDRESS not in ('deanna.mannion@avonusa.com','srivastavasona12345@gmail.com' )and bc.EMAILADDRESS like '" + c + "%'"
     cursor.execute(queryForGettingRandomAcc)
     data = cursor.fetchall()
     return (data[0][0])
