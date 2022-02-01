@@ -11,5 +11,5 @@ def deletingScreeShots():
             os.remove(os.path.join(folder_path, image))
 
 deletingScreeShots()
-createAndDeleteSheet()
-writeNewDataToSheet('202203')
+# createAndDeleteSheet()
+# writeNewDataToSheet('202204')

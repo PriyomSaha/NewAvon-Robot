@@ -20,4 +20,4 @@ class Server:
 abc = Server()
 # you can give path till the robot file or you can use a batch file
 # K option tells cmd to run the command and keep the command window from closing. You may use /C instead to close the command window after the command finishes.
-abc.run_robotfiles('cmd', '/K robot --outputdir "Output" TestSuite/NewTestCase/TC_009_DB_UE_login_Shop.robot')
+abc.run_robotfiles('cmd', '/K robot --outputdir "Output" TestSuite/NewTestCase/TC_010_Guest_Shop.robot')

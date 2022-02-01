@@ -29,6 +29,7 @@ Logging In
     Enter email and continue    ${email}
 #    Enter email and continue    deanna.mannion@avonusa.com
 
+    Sleep    ${timeout}
     ${accDeactivated}=  Run Keyword And Return Status    Element Should Be Visible      ${textDropdownInput}    ${timeout}
     Run Keyword If    ${accDeactivated}     Activate account and change password
 

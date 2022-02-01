@@ -52,3 +52,6 @@ AE cust login and shop
     Logging In      ${email}
     Shop By Line Number     AE
     Sleep    30
+
+Guest cust shop
+    Shop By Line Number     guest

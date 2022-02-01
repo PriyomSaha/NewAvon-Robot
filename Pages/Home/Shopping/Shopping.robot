@@ -23,7 +23,8 @@ ${billingAddressSameAsShippingCheckbox}     (//label[starts-with(@class, 'MuiFor
 ${orderNumberContainer}     //div[contains(@class,'OrderCompletePage___StyledDiv-sc-amwobz')]/div
 
 ${sheet}    line numbers
-${Number of Products to add}    10
+${Number of Products to add}    4
+
 
 ${seeMoreLineNoButton}  //button[contains(text(),'See More')]
 ${lineNoContainer}      xpath://div[contains(@class, 'Item___StyledDiv5-sc-1ldjd0n-15')]
@@ -63,7 +64,11 @@ Shop By Line Number
         Sleep    ${timeout}
         Log To Console  Product-${lineNo}
     END
-    Complete the checkout flow  ${userType}
+    Run Keyword If    '${userType}' == 'guest'    Checkout steps for Guest
+    ...     ELSE    Complete the checkout flow  ${userType}
+
+Checkout steps for Guest
+    set cust email
 
 Complete the checkout flow
     [Arguments]    ${userType}
